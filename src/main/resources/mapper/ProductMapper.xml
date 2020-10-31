@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.shopping.mapper.ProductMapper">
+    <resultMap id="BaseResultMap" type="Product">
+        <id property="id" column="id"/>
+        <result property="albumPics" column="album_pics"/>
+        <result property="deleteStatus" column="delete_status"/>
+        <result property="description" column="description"/>
+        <result property="detailDesc" column="detail_desc"/>
+        <result property="detailTitle" column="detail_title"/>
+        <result property="name" column="name"/>
+        <result property="originalPrice" column="original_price"/>
+        <result property="pic" column="pic"/>
+        <result property="price" column="price"/>
+        <result property="productCategoryName" column="product_category_name"/>
+        <result property="promotionPrice" column="promotion_price"/>
+        <result property="publishStatus" column="publish_status"/>
+        <result property="sale" column="sale"/>
+    </resultMap>
+    <select id="selectById" resultMap="BaseResultMap">
+        select id,
+               name,
+               pic,
+               price,
+               promotion_price,
+               description,
+               original_price,
+               album_pics,
+               detail_title,
+               detail_desc,
+               product_category_name,
+               delete_status,
+               publish_status,
+               sale
+        from tb_product
+        where delete_status = 0
+          and id = #{id}
+    </select>
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smart.shopping.mapper.ShoppingCartMapper">
+    <resultMap id="BaseResultMap" type="ShoppingCart">
+        <id property="cartId" column="id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="deleteStatus" column="delete_status"/>
+    </resultMap>
+    <select id="selectList" resultMap="BaseResultMap">
+        select id, product_id, member_id, quantity, delete_status
+        from tb_shopping_cart
+        where delete_status = 0
+          and member_id = #{memberId}
+    </select>
+    <select id="selectByMemberIdAndProductId" resultMap="BaseResultMap">
+        select id, product_id, member_id, quantity, delete_status
+        from tb_shopping_cart
+        where delete_status = 0
+          and member_id = #{memberId}
+          and product_id = #{productId}
+    </select>
+    <insert id="insert">
+        insert into tb_shopping_cart(product_id, member_id, quantity)
+        values (#{cart.productId}, #{cart.memberId}, #{cart.quantity});
+    </insert>
+    <update id="deleteById">
+        update tb_shopping_cart
+        set delete_status = 1
+        where id = #{id}
+    </update>
+    <update id="updataByMemberIdAndProduceId">
+        update tb_shopping_cart
+        set quantity=#{quantity}
+        where delete_status = 0
+          and member_id = #{memberId}
+          and product_id = #{productId}
+    </update>
+</mapper>
